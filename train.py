@@ -10,7 +10,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 
 import mlflow
-import mlflow.sklearn
+import mlflow.sklearn  # type: ignore
 from mlflow.models import infer_signature
 
 logging.basicConfig(level=logging.WARN)
@@ -32,6 +32,9 @@ if __name__ == "__main__":
     csv_url = (
         "https://raw.githubusercontent.com/mlflow/mlflow/master/tests/datasets/winequality-red.csv"
     )
+
+    data = None  # Initialize data to None
+
     try:
         data = pd.read_csv(csv_url, sep=";")
     except Exception as e:
@@ -40,7 +43,7 @@ if __name__ == "__main__":
         )
 
     # Split the data into training and test sets. (0.75, 0.25) split.
-    train, test = train_test_split(data)
+    train, test = train_test_split(data) 
 
     # The predicted column is "quality" which is a scalar from [3, 9]
     train_x = train.drop(["quality"], axis=1)
